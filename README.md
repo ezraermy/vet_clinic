@@ -26,9 +26,7 @@
 
 # 📖 [vet_clinic] <a name="about-project"></a>
 
-- In this project, I used a relational database to create the initial data structure for a vet clinic. I created a table to store animals' information, insert some data into it, and query it.
-
-**[vet_clinic]** is a...
+**[vet_clinic]** is a relational database to create the initial data structure for a vet clinic. I created a table to store animals' information, insert some data into it, and query it.
 
 ## 🛠 Built With <a name="built-with"></a>
 
