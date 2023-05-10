@@ -8,3 +8,20 @@ CREATE TABLE animals(
 )
 
 ALTER TABLE animals ADD species VARCHAR(255);
+
+CREATE TABLE owners (
+  id SERIAL PRIMARY KEY,
+  full_name TEXT,
+  age INTEGER
+);
+
+CREATE TABLE species (
+  id SERIAL PRIMARY KEY,
+  name TEXT
+);
+
+ALTER TABLE animals DROP COLUMN species;
+
+ALTER TABLE animals ADD COLUMN species_id INTEGER;
+
+ALTER TABLE animals ADD COLUMN owner_id INTEGER;
