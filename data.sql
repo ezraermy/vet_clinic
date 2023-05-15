@@ -103,5 +103,12 @@ VALUES (1, 3, '2020-07-22'),
        (9, 2, '2020-08-03'),
        (10, 3, '2020-05-24'),
        (10, 1, '2021-01-11')
-ON CONFILICT DO NOTHING;
+ON CONFLICT DO NOTHING;
+
+INSERT INTO visits (animal_id, vet_id, visit_date)
+SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, 
+generate_series('1980-01-01'::timestamp, '2023-01-01', '1 hour') visit_timestamp ON CONFLICT DO NOTHING;
+
+INSERT INTO owners (full_name, email)
+SELECT 'Owner ' || generate_series(1, 2500000), 'owner_' || generate_series(1, 2500000) || '@mail.com';
 
