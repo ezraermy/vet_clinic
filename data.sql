@@ -84,24 +84,31 @@ VALUES (4, 2);
 
 -- Insert data to the visits
 INSERT INTO visits (animal_id, vet_id, visit_date)
-VALUES (1, 3, '2020-07-22'),
-       (2, 4, '2021-02-02'),
-       (3, 2, '2020-01-05'),
-       (3, 2, '2020-03-08'),
-       (3, 2, '2020-05-14'),
-       (4, 3, '2021-05-04'),
-       (5, 4, '2021-02-24'),
-       (6, 2, '2019-12-21'),
-       (6, 1, '2020-08-10'),
-       (6, 2, '2021-04-07'),
-       (7, 3, '2019-09-29'),
-       (8, 4, '2020-10-03'),
-       (8, 4, '2020-11-04'),
-       (9, 2, '2019-01-24'),
-       (9, 2, '2019-05-15'),
-       (9, 2, '2020-02-27'),
-       (9, 2, '2020-08-03'),
-       (10, 3, '2020-05-24'),
-       (10, 1, '2021-01-11')
-ON CONFILICT DO NOTHING;
+VALUES 
+    ((SELECT id FROM animals WHERE id = 13), 9, '2020-07-22'),
+    ((SELECT id FROM animals WHERE id = 14), 10, '2021-02-02'),
+    ((SELECT id FROM animals WHERE id = 15), 11, '2020-01-05'),
+    ((SELECT id FROM animals WHERE id = 15), 11, '2020-03-08'),
+    ((SELECT id FROM animals WHERE id = 15), 11, '2020-05-14'),
+    ((SELECT id FROM animals WHERE id = 16), 9, '2021-05-04'),
+    ((SELECT id FROM animals WHERE id = 17), 10, '2021-02-24'),
+    ((SELECT id FROM animals WHERE id = 18), 11, '2019-12-21'),
+    ((SELECT id FROM animals WHERE id = 18), 12, '2020-08-10'),
+    ((SELECT id FROM animals WHERE id = 18), 11, '2021-04-07'),
+    ((SELECT id FROM animals WHERE id = 19), 9, '2019-09-29'),
+    ((SELECT id FROM animals WHERE id = 20), 10, '2020-10-03'),
+    ((SELECT id FROM animals WHERE id = 20), 10, '2020-11-04'),
+    ((SELECT id FROM animals WHERE id = 21), 11, '2019-01-24'),
+    ((SELECT id FROM animals WHERE id = 21), 11, '2019-05-15'),
+    ((SELECT id FROM animals WHERE id = 21), 11, '2020-02-27'),
+    ((SELECT id FROM animals WHERE id = 21), 11, '2020-08-03'),
+    ((SELECT id FROM animals WHERE id = 22), 9, '2020-05-24'),
+    ((SELECT id FROM animals WHERE id = 22), 12, '2021-01-11');
+
+INSERT INTO visits (animal_id, vet_id, visit_date)
+SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, 
+generate_series('1980-01-01'::timestamp, '2023-01-01', '1 hour') visit_timestamp ON CONFLICT DO NOTHING;
+
+INSERT INTO owners (full_name, email)
+SELECT 'Owner ' || generate_series(1, 2500000), 'owner_' || generate_series(1, 2500000) || '@mail.com';
 
